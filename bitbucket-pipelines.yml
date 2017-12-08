@@ -1,0 +1,22 @@
+image: node:6.2.1
+
+pipelines:
+  branches:
+    aws-prod:
+      - step:
+          script:
+            - npm --version
+            - npm install
+            - npm install -g gulp-cli bower
+            - bower --allow-root install
+            - gulp ci --verbose
+            - node s3_deploy.js deploy-prod
+    aws-dev:
+      - step:
+          script:
+            - npm --version
+            - npm install
+            - npm install -g gulp-cli bower
+            - bower --allow-root install
+            - gulp ci --verbose
+            - node s3_deploy.js deploy-dev
